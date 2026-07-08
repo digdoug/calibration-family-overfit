@@ -1,0 +1,41 @@
+# Sabotage-monitor-transfer dependencies, grouped by week-of-need.
+# Hard pins live in requirements.lock.txt (auto-generated from `pip freeze`).
+# The version bounds here are the spec; the lock is what we actually install.
+#
+# Install (analysis-only, week 0-1):
+#     python3.11 -m venv .venv
+#     .venv/bin/pip install -r requirements.lock.txt
+#
+# The agent-runtime stack (ControlArena, Inspect AI, Docker) and the
+# GPU/stretch stack (vLLM, torch, peft) are intentionally NOT installed in
+# the same venv as the analysis core -- they pull large wheels and complicate
+# the reproducibility surface for the headline statistic (the design doc s.10).
+
+# ===== [core] analysis -- always installed =====
+# Used by scripts/week1_analysis_core.py and scripts/transfer_data.py.
+numpy>=1.26,<3.0
+scipy>=1.13,<2.0
+scikit-learn>=1.5,<2.0
+pandas>=2.2,<3.0
+statsmodels>=0.14,<1.0    # two-way ANOVA cross-check on the matrix-subtraction interaction
+pytest>=8.0,<9.0
+pyyaml>=6.0,<7.0          # configs/provenance.yaml read/write
+
+# ===== [agent_runtime] week 1+ -- install in a SEPARATE venv =====
+# Clone control-arena into vendor/control-arena and pin the commit SHA in
+# configs/provenance.yaml. Do not `pip install` it into the .venv used for
+# the analysis core.
+#   inspect-ai>=0.3                              # ControlArena is built on Inspect
+#   -e vendor/control-arena[dev]                 # at pinned commit SHA
+# Docker required for sandboxed BashBench/BashArena settings.
+
+# ===== [monitor_scoring] week 2+ -- OpenAI / DeepInfra / Anthropic clients =====
+#   openai>=1.40         # gpt-4.1-mini Batch API (50% off, the design doc s.9)
+#   anthropic>=0.34      # optional Claude Haiku-class confirmatory monitor
+
+# ===== [gpu_stretch] week 7-8 ONLY -- QLoRA family-conditioned monitor =====
+# Self-host on RunPod for ~1-2 days; do not install into the analysis venv.
+#   vllm>=0.6
+#   peft>=0.12
+#   transformers>=4.45
+#   torch>=2.3

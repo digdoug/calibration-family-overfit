@@ -1,0 +1,51 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+# .venv-controlarena etc kept separate from .venv (analysis core)
+.venv/
+.venv-*/
+venv/
+env/
+
+# Project outputs (trajectory exports, monitor scores, CIs)
+results/
+trajectories/
+*.parquet
+
+# Raw generated data (agent transcripts / eval logs) are never committed (data-handling rule, the design doc §6)
+data/**/*.jsonl
+data/**/*.eval
+*.eval
+
+# Secrets / env (API keys for monitor scoring)
+.env
+.env.*
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+
+# HF / torch / vLLM caches if local
+.cache/
+*.safetensors
+*.bin
+
+# Docker / ControlArena sandbox artifacts
+.docker/
+
+# Vendored external repos (ControlArena clone; commit SHA tracked in configs/provenance.yaml)
+vendor/
+
+# pytest cache
+.pytest_cache/
+
+# LaTeX build artifacts (regenerable via tectonic)
+# NB: paper/*.pdf is tracked (compiled paper kept in-repo); aux/log stay ignored.
+paper/*.aux
+paper/*.log
+results/headangle/
+paper/*.bbl
+paper/*.blg
+paper/*.out
