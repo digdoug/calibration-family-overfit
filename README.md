@@ -1,7 +1,7 @@
 # Calibration-Family Overfit: Why Trusted Sabotage Monitors Don't Transfer Across Lineages
 
 Analysis code and aggregate results for an empirical AI-control study. The paper is
-`paper/paper.pdf` (arXiv id: TBD; the link will be added when the preprint is announced);
+`paper/paper.pdf` ([arXiv:2607.06596](https://arxiv.org/abs/2607.06596));
 all aggregate figures are in `docs/figures/`.
 
 ## The claim
